@@ -1,12 +1,10 @@
 ﻿<script>
 import {
     defineComponent,
-    toRaw
 } from 'vue'
 
 import {
     EventBus,
-    NullL10n,
     PDFFindController,
     PDFLinkService,
     PDFViewer
@@ -54,6 +52,7 @@ export default defineComponent({
             const pdfDocument = await pdfLoadingTask.promise
 
             const container = this.$refs.container
+            const viewer = this.$refs.viewer
             const eventBus = new EventBus()
             const linkService = new PDFLinkService({
                 eventBus,
@@ -64,6 +63,7 @@ export default defineComponent({
             })
             const pdfViewer = new PDFViewer({
                 container,
+                viewer,
                 eventBus,
                 linkService,
                 findController,
@@ -90,7 +90,7 @@ export default defineComponent({
         <p class="page-numbers">{{ pageNumber }} / {{ totalPages }}</p>
         <div ref="container"
              class="pdf-viewer-container">
-            <div id="viewer" class="pdf-viewer"></div>
+            <div ref="viewer" class="pdf-viewer"></div>
         </div>
     </section>
 </template>
